@@ -1,6 +1,8 @@
 class Student
   attr_accessor :id, :name, :grade
 
+
+
   def self.new_from_db(row)
     # create a new Student object given a row from the database
     student = self.new
@@ -79,7 +81,7 @@ end
   end
 
 
-  def self.first_X_students_in_grade_10(x)
+  def self.first_X_students_in_grade_10(name, grade)
     sql = <<-SQL
        SELECT *
        FROM students
@@ -87,7 +89,7 @@ end
        LIMIT ?
     SQL
 
-  DB[:conn].execute(sql, x).map do |row|
+  DB[:conn].execute(sql, name, grade).map do |row|
     self.new_from_db(row)
   end.first
 end
